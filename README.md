@@ -20,7 +20,7 @@ dependencies:
 
 Import vb_image_cache in a dart file:
 ```
-import 'package:cache_image/vb_image_cache.dart';
+import 'package:vb_image_cache/vb_image_cache.dart';
 ```
 
 To support firebase storage download the generated google-services.json file and place it inside android/app. Next, modify the android/build.gradle file and the android/app/build.gradle file to add the Google services plugin as described by the Firebase assistant.
@@ -32,16 +32,16 @@ VBCacheImage can be used with any widget that support an ImageProvider.
 ``` dart
 Image(
     fit: BoxFit.cover,
-    image: CacheImage('https://paste-your-link-here.com/image.png'),
+    image: VBCacheImage('https://paste-your-link-here.com/image.png'),
 ),
 Image(
     fit: BoxFit.cover,
-    image:  CacheImage('https://paste-your-link-here.com/image.png', duration: Duration(seconds: 2), durationExpiration: Duration(seconds: 10)),
+    image:  VBCacheImage('https://paste-your-link-here.com/image.png', duration: Duration(seconds: 2), durationExpiration: Duration(seconds: 10)),
 ),
 FadeInImage(
     fit: BoxFit.cover,
     placeholder: AssetImage('assets/placeholder.png'),
-    image: CacheImage('https://paste-your-link-here.com/image.png')
+    image: VBCacheImage('https://paste-your-link-here.com/image.png')
 )
  ```
 
