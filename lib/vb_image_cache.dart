@@ -24,8 +24,7 @@ class VBCacheImage extends ImageProvider<VBCacheImage> {
     this.duration = const Duration(seconds: 1),
     this.durationMultiplier = 1.5,
     this.durationExpiration = const Duration(seconds: 10),
-  })  : assert(url != null),
-        _resource = VBResource(url, duration, durationMultiplier, durationExpiration);
+  })  : _resource = VBResource(url, duration, durationMultiplier, durationExpiration);
 
   /// The scale to place in the [ImageInfo] object of the image.
   final double scale;
@@ -45,7 +44,7 @@ class VBCacheImage extends ImageProvider<VBCacheImage> {
   VBResource _resource;
 
   Future<Codec> _fetchImage() async {
-    Uint8List file;
+    Uint8List? file;
     await _resource.init();
     final bool check = await _resource.checkFile();
     if (check) {
@@ -53,10 +52,10 @@ class VBCacheImage extends ImageProvider<VBCacheImage> {
     } else {
       file = await _resource.storeFile();
     }
-    if (file.length > 0) {
-      return PaintingBinding.instance.instantiateImageCodec(file);
+    if (file!.length > 0) {
+      return PaintingBinding.instance!.instantiateImageCodec(file);
     }
-    return null;
+    throw Exception("Zero length file encountered");
   }
 
   @override

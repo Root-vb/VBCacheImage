@@ -1,20 +1,20 @@
 name: vb_image_cache
 description: A new Flutter package for caching images
-version: 1.0.0
+version: 2.0.0
 author: Vaibhav Bhasin <vaibhavbhasin15@gmail.com>
 homepage: https://github.com/Root-vb/VBCacheImage
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
 
-  firebase_storage: ^5.0.1
-  path_provider: ^1.6.24
+  firebase_storage: ^8.0.0
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:

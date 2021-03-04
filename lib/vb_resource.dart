@@ -20,18 +20,17 @@ class VBResource {
   final double durationMultiplier;
   final Duration durationExpiration;
 
-  Uri _temp;
-  Uri _local;
-  Uri _remote;
+  Uri? _temp;
+  Uri? _local;
+  Uri? _remote;
   Duration _retry;
 
   VBResource(this.uri, this.duration, this.durationMultiplier, this.durationExpiration)
-      : assert(uri != null),
-        _retry = duration;
+      : _retry = duration;
 
-  Uri get remote => _remote;
-  Uri get temp => _temp;
-  Uri get local => _local;
+  Uri? get remote => _remote;
+  Uri? get temp => _temp;
+  Uri? get local => _local;
 
   Uri _parse(String uri) {
     return Uri.parse(uri);
@@ -45,21 +44,21 @@ class VBResource {
   Future<VBResource> init() async {
     _temp = await _getTempDir();
     _remote = _parse(uri);
-    _local = _parse(_temp.path + '/' + _remote.hashCode.toString());
+    _local = _parse(_temp!.path + '/' + _remote.hashCode.toString());
 
     return this;
   }
 
   Future<bool> checkFile() async {
-    final File file = File(_local.path);
+    final File file = File(_local!.path);
     if (file.existsSync() && file.lengthSync() > 0) {
       return true;
     }
     return false;
   }
 
-  Future<Uint8List> getFile() async {
-    final File file = File(_local.path);
+  Future<Uint8List?> getFile() async {
+    final File file = File(_local!.path);
     if (file.existsSync() && file.lengthSync() > 0) {
       return file.readAsBytesSync();
     }
@@ -67,10 +66,10 @@ class VBResource {
   }
 
   Future<Uint8List> storeFile() async {
-    File file = await File(_local.path).create(recursive: true);
+    File file = await File(_local!.path).create(recursive: true);
     // Check FireStorage scheme
-    if (_remote.scheme == 'gs') {
-      final Reference ref = FirebaseStorage.instance.ref().child(_remote.path);
+    if (_remote!.scheme == 'gs') {
+      final Reference ref = FirebaseStorage.instance.ref().child(_remote!.path);
       final dynamic url = await ref.getDownloadURL();
       _remote = Uri.parse(url);
     }
@@ -79,7 +78,7 @@ class VBResource {
       await Future.delayed(_retry).then((_) async {
         try {
           HttpClient httpClient = new HttpClient();
-          final HttpClientRequest request = await httpClient.getUrl(_remote);
+          final HttpClientRequest request = await httpClient.getUrl(_remote!);
           final HttpClientResponse response = await request.close();
           final Uint8List bytes =
               await consolidateHttpClientResponseBytes(response, autoUncompress: false);
