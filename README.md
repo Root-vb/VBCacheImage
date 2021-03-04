@@ -32,16 +32,16 @@ VBCacheImage can be used with any widget that support an ImageProvider.
 ``` dart
 Image(
     fit: BoxFit.cover,
-    image: CacheImage('https://paste-your-link-here.com/image.png'),
+    image: VBCacheImage('https://paste-your-link-here.com/image.png'),
 ),
 Image(
     fit: BoxFit.cover,
-    image:  CacheImage('https://paste-your-link-here.com/image.png', duration: Duration(seconds: 2), durationExpiration: Duration(seconds: 10)),
+    image: VBCacheImage('https://paste-your-link-here.com/image.png', duration: Duration(seconds: 2), durationExpiration: Duration(seconds: 10)),
 ),
 FadeInImage(
     fit: BoxFit.cover,
     placeholder: AssetImage('assets/placeholder.png'),
-    image: CacheImage('https://paste-your-link-here.com/image.png')
+    image: VBCacheImage('https://paste-your-link-here.com/image.png')
 )
  ```
 
