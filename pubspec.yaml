@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
 
 
-  firebase_storage: ^5.0.1
-  path_provider: ^1.6.24
+  firebase_storage: ^8.0.0
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:
