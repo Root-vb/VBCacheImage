@@ -20,14 +20,14 @@ class VBResource {
   final double durationMultiplier;
   final Duration durationExpiration;
 
-  Uri _temp;
-  Uri _local;
-  Uri _remote;
+  late Uri _temp;
+  late Uri _local;
+  late Uri _remote;
   Duration _retry;
 
-  VBResource(this.uri, this.duration, this.durationMultiplier, this.durationExpiration)
-      : assert(uri != null),
-        _retry = duration;
+  VBResource(
+      this.uri, this.duration, this.durationMultiplier, this.durationExpiration)
+      : _retry = duration;
 
   Uri get remote => _remote;
   Uri get temp => _temp;
@@ -58,7 +58,7 @@ class VBResource {
     return false;
   }
 
-  Future<Uint8List> getFile() async {
+  Future<Uint8List?> getFile() async {
     final File file = File(_local.path);
     if (file.existsSync() && file.lengthSync() > 0) {
       return file.readAsBytesSync();
@@ -81,8 +81,9 @@ class VBResource {
           HttpClient httpClient = new HttpClient();
           final HttpClientRequest request = await httpClient.getUrl(_remote);
           final HttpClientResponse response = await request.close();
-          final Uint8List bytes =
-              await consolidateHttpClientResponseBytes(response, autoUncompress: false);
+          final Uint8List bytes = await consolidateHttpClientResponseBytes(
+              response,
+              autoUncompress: false);
           file = await file.writeAsBytes(bytes);
         } catch (err) {
           _retry += _retry * this.durationMultiplier;
