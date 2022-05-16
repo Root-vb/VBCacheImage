@@ -25,7 +25,8 @@ class VBCacheImage extends ImageProvider<VBCacheImage> {
     this.durationMultiplier = 1.5,
     this.durationExpiration = const Duration(seconds: 10),
   })  : assert(url != null),
-        _resource = VBResource(url, duration, durationMultiplier, durationExpiration);
+        _resource =
+            VBResource(url, duration, durationMultiplier, durationExpiration);
 
   /// The scale to place in the [ImageInfo] object of the image.
   final double scale;
@@ -54,7 +55,7 @@ class VBCacheImage extends ImageProvider<VBCacheImage> {
       file = await _resource.storeFile();
     }
     if (file!.length > 0) {
-      return PaintingBinding.instance!.instantiateImageCodec(file);
+      return PaintingBinding.instance.instantiateImageCodec(file);
     }
     throw Error;
   }
@@ -70,7 +71,8 @@ class VBCacheImage extends ImageProvider<VBCacheImage> {
         codec: key._fetchImage(),
         scale: key.scale,
         informationCollector: () sync* {
-          yield DiagnosticsProperty<ImageProvider>('Image provider: $this \n Image key: $key', this,
+          yield DiagnosticsProperty<ImageProvider>(
+              'Image provider: $this \n Image key: $key', this,
               style: DiagnosticsTreeStyle.errorProperty);
         });
   }
